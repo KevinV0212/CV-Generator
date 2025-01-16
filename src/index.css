@@ -1,17 +1,61 @@
 :root {
+  --color-primary: #2c2724;
+  --color-secondary: #49423e;
+  --color-accent: #e8ddd5;
+  --color-error: #faf9f6;
+  --color-success: #39828c;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #2c2724;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* reset start */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/*reset end*/
 
 a {
   font-weight: 500;
@@ -30,11 +74,28 @@ body {
   min-height: 100vh;
 }
 
+section {
+  width: 100%;
+  margin: 20px 0;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
 
+.container {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 600px) {
+  .container {
+    max-width: 1000px;
+  }
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
