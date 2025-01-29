@@ -1,3 +1,6 @@
+import Input from "../Input/Input";
+import Textarea from "../Textarea/Textarea";
+
 export default function ExForm({ data, handleInputChange, handleDelete }) {
   // form should somehow be correlated with some index of the use state variable it's data is inside of
   // when an input field changes, it will search he matching element in the state data varaible and then update that index
@@ -16,48 +19,49 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <label htmlFor="company">Company</label>
-      <input
+      <Input
         name="company"
         id="company"
+        label="Company"
         value={data.company}
         placeholder="Ex: ACME"
         onChange={updateData}
         required
       />
 
-      <label htmlFor="position">Position/Role</label>
-      <input
+      <Input
         name="position"
         id="position"
+        label="Position/Role"
         value={data.position}
         placeholder="Ex: Head Trap Technician"
         onChange={updateData}
         required
       />
 
-      <label htmlFor="startDate">Start Date</label>
-      <input
+      <Input
         name="startDate"
         id="startDate"
+        label="Start Date"
         value={data.startDate}
         onChange={updateData}
         type="date"
         required
       />
 
-      <label htmlFor="endDate">End Date</label>
-      <input
+      <Input
         name="endDate"
         id="endDate"
+        label="End Date"
         value={data.endDate}
         onChange={updateData}
         type="date"
       />
 
-      <label htmlFor="description">Description</label>
-      <textarea
+      <Textarea
         name="description"
         id="description"
+        label="Description"
         value={data.description}
         onChange={updateData}
         placeholder="Ex: I did...during my time at..."

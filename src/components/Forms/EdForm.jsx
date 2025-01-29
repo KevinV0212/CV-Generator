@@ -1,3 +1,6 @@
+import Input from "../Input/Input";
+import Select from "../Select/Select";
+
 let degreeTypes = [
   "Highschool/GED",
   "Associates",
@@ -23,49 +26,54 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
   };
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <label htmlFor="institution">Institution</label>
-      <input
+      <Input
         name="institution"
         id="institution"
+        label="Institution"
         value={data.institution}
         placeholder="Ex: Harvard"
         onChange={updateData}
         required
       />
 
-      <label htmlFor="degreeType">Degree Type</label>
-      <select name="degreeType" id="degreeType" onChange={updateData} required>
+      <Select
+        name="degreeType"
+        id="degreeType"
+        label="Degree Type"
+        onChange={updateData}
+        required
+      >
         <option>Degree Type</option>
         {degreeTypes.map((type) => (
           <option value={type} key={type}>
             {type}
           </option>
         ))}
-      </select>
+      </Select>
 
-      <label htmlFor="major">Major</label>
-      <input
+      <Input
         name="major"
         id="major"
+        label="Major"
         value={data.major}
         placeholder="Ex: Quantum Psychology"
         onChange={updateData}
         required
       />
-      <label htmlFor="startDate">Start Date</label>
-      <input
+      <Input
         name="startDate"
         id="startDate"
+        label="Start Date"
         value={data.startDate}
         onChange={updateData}
         type="date"
         required
       />
 
-      <label htmlFor="endDate">End Date</label>
-      <input
+      <Input
         name="endDate"
         id="endDate"
+        label="End Date"
         value={data.endDate}
         onChange={updateData}
         type="date"

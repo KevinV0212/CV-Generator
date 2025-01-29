@@ -1,3 +1,5 @@
+import Input from "../Input/Input";
+
 export default function BasicForm({ data, handleInputChange }) {
   // form should somehow be correlated with some index of the use state variable it's data is inside of
   // when an input field changes, it will search he matching element in the state data varaible and then update that index
@@ -14,30 +16,30 @@ export default function BasicForm({ data, handleInputChange }) {
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <label htmlFor="firstName">First Name</label>
-      <input
+      <Input
         name="firstName"
         id="firstName"
+        label="First Name"
         value={data.firstName}
         placeholder="Ex: Roger"
         onChange={updateData}
         required
       />
 
-      <label htmlFor="lastName">Last Name</label>
-      <input
+      <Input
         name="lastName"
         id="lastName"
+        label="LastName"
         value={data.lastName}
         placeholder="Ex: Federer"
         onChange={updateData}
         required
       />
 
-      <label htmlFor="phone">Phone Number</label>
-      <input
+      <Input
         name="phone"
         id="phone"
+        label="Phone Number"
         value={data.phone}
         placeholder="Ex: 111-111-111"
         onChange={updateData}
@@ -45,10 +47,10 @@ export default function BasicForm({ data, handleInputChange }) {
         required
       />
 
-      <label htmlFor="email">Email</label>
-      <input
+      <Input
         name="email"
         id="email"
+        label="Email"
         value={data.email}
         placeholder="Ex: roger@email.com"
         onChange={updateData}
