@@ -33,6 +33,7 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.institution}
         placeholder="Ex: Harvard"
         onChange={updateData}
+        fill
         required
       />
 
@@ -41,6 +42,7 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         id="degreeType"
         label="Degree Type"
         onChange={updateData}
+        fill
         required
       >
         <option>Degree Type</option>
@@ -58,6 +60,7 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.major}
         placeholder="Ex: Quantum Psychology"
         onChange={updateData}
+        fill
         required
       />
       <Input
@@ -69,7 +72,6 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         type="date"
         required
       />
-
       <Input
         name="endDate"
         id="endDate"
@@ -80,7 +82,6 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         required
       />
       <button onClick={deleteData}>Delete</button>
-      <button onClick={() => console.log(data)}>Check form data</button>
     </form>
   );
 }

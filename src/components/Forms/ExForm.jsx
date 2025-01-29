@@ -18,7 +18,6 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
   };
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <label htmlFor="company">Company</label>
       <Input
         name="company"
         id="company"
@@ -26,6 +25,7 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         value={data.company}
         placeholder="Ex: ACME"
         onChange={updateData}
+        fill
         required
       />
 
@@ -36,6 +36,7 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         value={data.position}
         placeholder="Ex: Head Trap Technician"
         onChange={updateData}
+        fill
         required
       />
 
@@ -65,11 +66,10 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         value={data.description}
         onChange={updateData}
         placeholder="Ex: I did...during my time at..."
+        fill
         required
       />
       <button onClick={deleteData}>Delete</button>
-
-      <button onClick={() => console.log(data)}>Check form data</button>
     </form>
   );
 }

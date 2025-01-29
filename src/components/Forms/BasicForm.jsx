@@ -23,6 +23,7 @@ export default function BasicForm({ data, handleInputChange }) {
         value={data.firstName}
         placeholder="Ex: Roger"
         onChange={updateData}
+        fill
         required
       />
 
@@ -33,6 +34,7 @@ export default function BasicForm({ data, handleInputChange }) {
         value={data.lastName}
         placeholder="Ex: Federer"
         onChange={updateData}
+        fill
         required
       />
 
@@ -44,6 +46,7 @@ export default function BasicForm({ data, handleInputChange }) {
         placeholder="Ex: 111-111-111"
         onChange={updateData}
         type="tel"
+        fill
         required
       />
 
@@ -55,9 +58,9 @@ export default function BasicForm({ data, handleInputChange }) {
         placeholder="Ex: roger@email.com"
         onChange={updateData}
         type="email"
+        fill
         required
       />
-      <button onClick={() => console.log(data)}>Check form data</button>
     </form>
   );
 }
