@@ -47,15 +47,21 @@ export default function Entry() {
 
   // handles update to   an educationform and corresponding data entry
   const handleEdChange = (id, data) => {
-    setEducation([...education.slice(0, id), data, ...education.slice(id + 1)]);
+    let targetIndex = education.findIndex((entry) => entry.id === id);
+    setEducation([
+      ...education.slice(0, targetIndex),
+      data,
+      ...education.slice(targetIndex + 1),
+    ]);
   };
 
   // handles update to an experience form and corresponding data entry
   const handleExChange = (id, data) => {
+    let targetIndex = experience.findIndex((entry) => entry.id === id);
     setExperience([
-      ...experience.slice(0, id),
+      ...experience.slice(0, targetIndex),
       data,
-      ...experience.slice(id + 1),
+      ...experience.slice(targetIndex + 1),
     ]);
   };
 
@@ -119,7 +125,18 @@ export default function Entry() {
         </section>
         <div className="">
           <button>Cancel</button>
-          <button>Submit</button>
+          <button
+            onClick={() => {
+              console.log(basic);
+              console.log();
+              console.log(education);
+              console.log();
+              console.log(experience);
+              console.log();
+            }}
+          >
+            Submit
+          </button>
         </div>
       </main>
     </>
