@@ -14,28 +14,43 @@ const basicTemplate = {
 };
 // create template for education data
 const edTemplate = {
+  id: 0,
   institution: "",
   degreeType: "",
   major: "",
-  startDate: null,
-  endDate: null,
+  startDate: new Date(),
+  endDate: new Date(),
 };
 
 // create template for experience data
 const exTemplate = {
-  institution: "",
-  degreeType: "",
-  major: "",
-  startDate: null,
-  endDate: null,
+  id: 0,
+  company: "",
+  position: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  description: "",
 };
 // on button add entry button, create new version  of education with an extra (empty) data entry
 // then redner the forms based on the existing entries in experience and education
 export default function Entry() {
-  const [basic, setBasic] = useState({ ...basicTemplate });
-  const [education, setEducation] = useState([{ ...edTemplate }]);
-  const [experience, setExperience] = useState([{ ...exTemplate }]);
+  const [basic, setBasic] = useState(basicTemplate);
+  const [education, setEducation] = useState([edTemplate]);
+  const [experience, setExperience] = useState([exTemplate]);
 
+  const handleBasicChange = (data) => {
+    setBasic({ ...data });
+  };
+  const handleEdChange = (id, data) => {
+    setEducation([...education.slice(0, id), data, ...education.slice(id + 1)]);
+  };
+  const handleExChange = (id, data) => {
+    setExperience([
+      ...experience.slice(0, id),
+      data,
+      ...experience.slice(id + 1),
+    ]);
+  };
   // function that coordinates changes to form with it's associated entry in education/expedrience
   // each form can be numbered based on their index in each use state array
   // on change takes an object with all of the data values of a form
@@ -51,7 +66,7 @@ export default function Entry() {
         <section id="basic">
           <Card>
             <h2>Basic Info</h2>
-            <BasicForm />
+            <BasicForm data={basic} handleInputChange={handleBasicChange} />
             <button>Add Entry</button>
           </Card>
         </section>
@@ -59,7 +74,11 @@ export default function Entry() {
           <Card>
             <h2>Education</h2>
             {education.map((entry, index) => (
-              <EdForm data={entry} key={index} />
+              <EdForm
+                data={entry}
+                handleInputChange={handleEdChange}
+                key={index}
+              />
             ))}
             <button>Add Entry</button>
           </Card>
@@ -69,7 +88,11 @@ export default function Entry() {
           <Card>
             <h2>Experience</h2>
             {experience.map((entry, index) => (
-              <ExForm data={entry} key={index} />
+              <ExForm
+                data={entry}
+                handleInputChange={handleExChange}
+                key={index}
+              />
             ))}
             <button>Add Entry</button>
           </Card>

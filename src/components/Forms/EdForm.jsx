@@ -6,22 +6,31 @@ let degreeTypes = [
   "Doctoral",
 ];
 
-export default function EdForm({ onChange }) {
+export default function EdForm({ data, handleInputChange }) {
   // form should somehow be correlated with some index of the use state variable it's data is inside of
   // when an input field changes, it will search he matching element in the state data varaible and then update that index
   // two layers of diving
   // there should be something similar to this in geosync I think for validation
+  const updateData = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    handleInputChange(data.id, { ...data, [name]: value });
+  };
+
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
       <label htmlFor="institution">Institution</label>
       <input
         name="institution"
         id="institution"
+        value={data.institution}
         placeholder="Ex: Harvard"
-      ></input>
+        onChange={updateData}
+        required
+      />
 
       <label htmlFor="degreeType">Degree Type</label>
-      <select name="degreeType" id="degreeType">
+      <select name="degreeType" id="degreeType" onChange={updateData} required>
         <option>Degree Type</option>
         {degreeTypes.map((type) => (
           <option value={type} key={type}>
@@ -30,18 +39,35 @@ export default function EdForm({ onChange }) {
         ))}
       </select>
 
-      <label htmlFor="">Major</label>
+      <label htmlFor="major">Major</label>
       <input
         name="major"
         id="major"
+        value={data.major}
         placeholder="Ex: Quantum Psychology"
-      ></input>
-
+        onChange={updateData}
+        required
+      />
       <label htmlFor="startDate">Start Date</label>
-      <input type="date" name="startDate" id="startDate"></input>
+      <input
+        name="startDate"
+        id="startDate"
+        value={data.startDate}
+        onChange={updateData}
+        type="date"
+        required
+      />
 
       <label htmlFor="endDate">End Date</label>
-      <input type="date" name="endDate" id="endDate"></input>
+      <input
+        name="endDate"
+        id="endDate"
+        value={data.endDate}
+        onChange={updateData}
+        type="date"
+        required
+      />
+      <button onClick={() => console.log(data)}>Check form data</button>
     </form>
   );
 }
