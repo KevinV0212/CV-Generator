@@ -12,6 +12,7 @@ const basicTemplate = {
   phone: "",
   email: "",
 };
+
 // create template for education data
 const edTemplate = {
   id: 0,
@@ -31,19 +32,25 @@ const exTemplate = {
   endDate: new Date(),
   description: "",
 };
-// on button add entry button, create new version  of education with an extra (empty) data entry
+
+// on button add entry button, create Add version  of education with an extra (empty) data entry
 // then redner the forms based on the existing entries in experience and education
 export default function Entry() {
   const [basic, setBasic] = useState(basicTemplate);
   const [education, setEducation] = useState([edTemplate]);
   const [experience, setExperience] = useState([exTemplate]);
 
+  // handles updates to basic form
   const handleBasicChange = (data) => {
     setBasic({ ...data });
   };
+
+  // handles update to   an educationform and corresponding data entry
   const handleEdChange = (id, data) => {
     setEducation([...education.slice(0, id), data, ...education.slice(id + 1)]);
   };
+
+  // handles update to an experience form and corresponding data entry
   const handleExChange = (id, data) => {
     setExperience([
       ...experience.slice(0, id),
@@ -51,10 +58,24 @@ export default function Entry() {
       ...experience.slice(id + 1),
     ]);
   };
-  // function that coordinates changes to form with it's associated entry in education/expedrience
-  // each form can be numbered based on their index in each use state array
-  // on change takes an object with all of the data values of a form
-  // you will then pass this callback into each form component then call the passed down funciton on the inptu values of the form
+
+  // handles adding Add education entry
+  const handleAddEd = () => {
+    let nextId = education.at(-1).id + 1;
+    setEducation([...education, { ...edTemplate, id: nextId }]);
+  };
+  // handles adding Add experience entry
+  const handleAddEx = () => {
+    let nextId = experience.at(-1).id + 1;
+    setExperience([...experience, { ...exTemplate, id: nextId }]);
+  };
+
+  // handles removing Add education entry
+  const handleRemoveEd = () => {};
+
+  // handles removing Add experience entry
+  const handleRemoveEx = () => {};
+
   return (
     <>
       <header>
@@ -67,7 +88,6 @@ export default function Entry() {
           <Card>
             <h2>Basic Info</h2>
             <BasicForm data={basic} handleInputChange={handleBasicChange} />
-            <button>Add Entry</button>
           </Card>
         </section>
         <section id="education">
@@ -77,10 +97,10 @@ export default function Entry() {
               <EdForm
                 data={entry}
                 handleInputChange={handleEdChange}
-                key={index}
+                key={"education" + entry.id}
               />
             ))}
-            <button>Add Entry</button>
+            <button onClick={handleAddEd}> Add Entry</button>
           </Card>
         </section>
 
@@ -91,10 +111,10 @@ export default function Entry() {
               <ExForm
                 data={entry}
                 handleInputChange={handleExChange}
-                key={index}
+                key={"experience" + entry.id}
               />
             ))}
-            <button>Add Entry</button>
+            <button onClick={handleAddEx}> Add Entry</button>
           </Card>
         </section>
         <div className="">
