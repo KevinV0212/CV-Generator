@@ -76,11 +76,23 @@ export default function Entry() {
     setExperience([...experience, { ...exTemplate, id: nextId }]);
   };
 
-  // handles removing Add education entry
-  const handleRemoveEd = () => {};
+  // handles Delete Add education entry
+  const handleDeleteEd = (id) => {
+    let targetIndex = education.findIndex((entry) => entry.id === id);
+    setEducation([
+      ...education.slice(0, targetIndex),
+      ...education.slice(targetIndex + 1),
+    ]);
+  };
 
   // handles removing Add experience entry
-  const handleRemoveEx = () => {};
+  const handleDeleteEx = (id) => {
+    let targetIndex = experience.findIndex((entry) => entry.id === id);
+    setExperience([
+      ...experience.slice(0, targetIndex),
+      ...experience.slice(targetIndex + 1),
+    ]);
+  };
 
   return (
     <>
@@ -103,6 +115,7 @@ export default function Entry() {
               <EdForm
                 data={entry}
                 handleInputChange={handleEdChange}
+                handleDelete={handleDeleteEd}
                 key={"education" + entry.id}
               />
             ))}
@@ -117,6 +130,7 @@ export default function Entry() {
               <ExForm
                 data={entry}
                 handleInputChange={handleExChange}
+                handleDelete={handleDeleteEx}
                 key={"experience" + entry.id}
               />
             ))}

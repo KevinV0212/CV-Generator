@@ -6,7 +6,7 @@ let degreeTypes = [
   "Doctoral",
 ];
 
-export default function EdForm({ data, handleInputChange }) {
+export default function EdForm({ data, handleInputChange, handleDelete }) {
   // form should somehow be correlated with some index of the use state variable it's data is inside of
   // when an input field changes, it will search he matching element in the state data varaible and then update that index
   // two layers of diving
@@ -17,6 +17,10 @@ export default function EdForm({ data, handleInputChange }) {
     handleInputChange(data.id, { ...data, [name]: value });
   };
 
+  const deleteData = (e) => {
+    e.preventDefault();
+    handleDelete(data.id);
+  };
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       <label htmlFor="institution">Institution</label>
@@ -67,6 +71,7 @@ export default function EdForm({ data, handleInputChange }) {
         type="date"
         required
       />
+      <button onClick={deleteData}>Delete</button>
       <button onClick={() => console.log(data)}>Check form data</button>
     </form>
   );
