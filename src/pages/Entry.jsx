@@ -67,12 +67,12 @@ export default function Entry() {
 
   // handles adding Add education entry
   const handleAddEd = () => {
-    let nextId = education.at(-1).id + 1;
+    let nextId = education.length > 0 ? education.at(-1).id + 1 : 0;
     setEducation([...education, { ...edTemplate, id: nextId }]);
   };
   // handles adding Add experience entry
   const handleAddEx = () => {
-    let nextId = experience.at(-1).id + 1;
+    let nextId = experience.length > 0 ? experience.at(-1).id + 1 : 0;
     setExperience([...experience, { ...exTemplate, id: nextId }]);
   };
 
