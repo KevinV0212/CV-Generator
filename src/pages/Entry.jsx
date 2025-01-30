@@ -98,19 +98,19 @@ export default function Entry() {
     <>
       <header>
         <img src={logoLess} alt="logo" />
-        <h1>Information</h1>
-        <p>Enter your information below then click submit</p>
+        <h1 className="title">Information</h1>
+        <p className="body">Enter your information below then click submit</p>
       </header>
       <main>
         <section id="basic">
           <Card>
-            <h2>Basic Info</h2>
+            <h2 className="heading">Basic Info</h2>
             <BasicForm data={basic} handleInputChange={handleBasicChange} />
           </Card>
         </section>
         <section id="education">
           <Card>
-            <h2>Education</h2>
+            <h2 className="heading">Education</h2>
             {education.map((entry, index) => (
               <EdForm
                 data={entry}
@@ -125,7 +125,7 @@ export default function Entry() {
 
         <section id="experience">
           <Card>
-            <h2>Experience</h2>
+            <h2 className="heading">Experience</h2>
             {experience.map((entry, index) => (
               <ExForm
                 data={entry}

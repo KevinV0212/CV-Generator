@@ -5,13 +5,13 @@ export default function Landing() {
   return (
     <>
       <header>
-        <h1>CV Generator</h1>
+        <h1 className="title">CV Generator</h1>
         <img src={logoFull} alt="logo" />
       </header>
       <main>
         <div className="container">
           <Card>
-            <p>
+            <p className="body">
               Quick resume without the hassle. Enter your information into the
               CV-Generator and have a ready to download resume in minutes.
             </p>

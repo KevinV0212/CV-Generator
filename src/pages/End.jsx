@@ -9,7 +9,7 @@ export default function End() {
       </header>
       <main>
         <Card>
-          <h1>Thank you for using CV Generator</h1>
+          <h1 className="title">Thank you for using CV Generator</h1>
           <button>Preview</button>
           <button>Edit Form</button>
           <button>Download as PDF</button>
