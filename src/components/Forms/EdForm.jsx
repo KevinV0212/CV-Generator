@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
 
@@ -81,7 +82,9 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         type="date"
         required
       />
-      <button onClick={deleteData}>Delete</button>
+      <Button color="negative" onClick={deleteData}>
+        Delete
+      </Button>
     </form>
   );
 }

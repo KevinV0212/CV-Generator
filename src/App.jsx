@@ -12,7 +12,7 @@ function App() {
       </nav>
       <Outlet />
       <footer>
-        <p className="small">&copy; 2025 Kevin Vu</p>
+        <p className="body">&copy; 2025 Kevin Vu</p>
       </footer>
     </>
   );

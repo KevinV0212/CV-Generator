@@ -1,0 +1,29 @@
+.neutral {
+  border-color: var(--color-text);
+  background-color: transparent;
+}
+
+.neutral:hover {
+  background-color: var(--color-text);
+  color: var(--color-primary);
+}
+
+.positive {
+  border-color: var(--color-success);
+  background-color: transparent;
+}
+
+.positive:hover {
+  background-color: var(--color-success);
+  color: var(--color-primary);
+}
+
+.negative {
+  border-color: var(--color-error);
+  background-color: transparent;
+}
+
+.negative:hover {
+  background-color: var(--color-error);
+  color: var(--color-primary);
+}

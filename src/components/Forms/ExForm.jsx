@@ -1,3 +1,4 @@
+import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
 
@@ -28,7 +29,6 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         fill
         required
       />
-
       <Input
         name="position"
         id="position"
@@ -39,7 +39,6 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         fill
         required
       />
-
       <Input
         name="startDate"
         id="startDate"
@@ -49,7 +48,6 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         type="date"
         required
       />
-
       <Input
         name="endDate"
         id="endDate"
@@ -58,7 +56,6 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         onChange={updateData}
         type="date"
       />
-
       <Textarea
         name="description"
         id="description"
@@ -69,7 +66,9 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         fill
         required
       />
-      <button onClick={deleteData}>Delete</button>
+      <Button color="negative" onClick={deleteData}>
+        Delete
+      </Button>
     </form>
   );
 }

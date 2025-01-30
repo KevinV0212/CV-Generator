@@ -1,4 +1,5 @@
 import logoFull from "../assets/logo-full-light.svg";
+import Button from "../components/Button/Button";
 import Card from "../components/Card/Card";
 
 export default function Landing() {
@@ -15,7 +16,7 @@ export default function Landing() {
               Quick resume without the hassle. Enter your information into the
               CV-Generator and have a ready to download resume in minutes.
             </p>
-            <button>Get Started</button>
+            <Button>Get Started</Button>
           </Card>
         </div>
       </main>

@@ -4,6 +4,7 @@ import Card from "../components/Card/Card";
 import EdForm from "../components/Forms/EdForm";
 import ExForm from "../components/Forms/ExForm";
 import BasicForm from "../components/Forms/BasicForm";
+import Button from "../components/Button/Button";
 
 // template for basic info
 const basicTemplate = {
@@ -119,7 +120,7 @@ export default function Entry() {
                 key={"education" + entry.id}
               />
             ))}
-            <button onClick={handleAddEd}> Add Entry</button>
+            <Button onClick={handleAddEd}> Add Entry</Button>
           </Card>
         </section>
 
@@ -134,23 +135,12 @@ export default function Entry() {
                 key={"experience" + entry.id}
               />
             ))}
-            <button onClick={handleAddEx}> Add Entry</button>
+            <Button onClick={handleAddEx}> Add Entry</Button>
           </Card>
         </section>
-        <div className="">
-          <button>Cancel</button>
-          <button
-            onClick={() => {
-              console.log(basic);
-              console.log();
-              console.log(education);
-              console.log();
-              console.log(experience);
-              console.log();
-            }}
-          >
-            Submit
-          </button>
+        <div className="btn-group">
+          <Button color="negative">Cancel</Button>
+          <Button color="positive">Submit</Button>
         </div>
       </main>
     </>
