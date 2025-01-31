@@ -1,7 +1,7 @@
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Textarea from "../Textarea/Textarea";
-
+import styles from "./form.module.css";
 export default function ExForm({ data, handleInputChange, handleDelete }) {
   // form should somehow be correlated with some index of the use state variable it's data is inside of
   // when an input field changes, it will search he matching element in the state data varaible and then update that index
@@ -18,7 +18,7 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
     handleDelete(data.id);
   };
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={(e) => e.preventDefault()} className={styles.entry}>
       <Input
         name="company"
         id="company"

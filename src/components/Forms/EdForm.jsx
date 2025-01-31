@@ -1,6 +1,7 @@
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
+import styles from "./form.module.css";
 
 let degreeTypes = [
   "Highschool/GED",
@@ -26,7 +27,7 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
     handleDelete(data.id);
   };
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form onSubmit={(e) => e.preventDefault()} className={styles.entry}>
       <Input
         name="institution"
         id="institution"
