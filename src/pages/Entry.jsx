@@ -5,6 +5,7 @@ import EdForm from "../components/Forms/EdForm";
 import ExForm from "../components/Forms/ExForm";
 import BasicForm from "../components/Forms/BasicForm";
 import Button from "../components/Button/Button";
+import { useNavigate } from "react-router";
 
 // template for basic info
 const basicTemplate = {
@@ -95,6 +96,10 @@ export default function Entry() {
     ]);
   };
 
+  let navigate = useNavigate();
+  const handleSubmit = () => {
+    navigate("/end");
+  };
   return (
     <>
       <header>
@@ -139,8 +144,12 @@ export default function Entry() {
           </Card>
         </section>
         <div className="btn-group">
-          <Button color="negative">Cancel</Button>
-          <Button color="positive">Submit</Button>
+          <Button color="negative" onClick={() => navigate("/")}>
+            Cancel
+          </Button>
+          <Button color="positive" onClick={handleSubmit}>
+            Submit
+          </Button>
         </div>
       </main>
     </>

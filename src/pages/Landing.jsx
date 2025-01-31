@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router";
 import logoFull from "../assets/logo-full-light.svg";
 import Button from "../components/Button/Button";
 import Card from "../components/Card/Card";
 
 export default function Landing() {
+  let navigate = useNavigate();
   return (
     <>
       <header>
@@ -16,7 +18,7 @@ export default function Landing() {
               Quick resume without the hassle. Enter your information into the
               CV-Generator and have a ready to download resume in minutes.
             </p>
-            <Button>Get Started</Button>
+            <Button onClick={() => navigate("/entry")}>Get Started</Button>
           </Card>
         </div>
       </main>
