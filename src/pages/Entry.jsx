@@ -6,6 +6,7 @@ import ExForm from "../components/Forms/ExForm";
 import BasicForm from "../components/Forms/BasicForm";
 import Button from "../components/Button/Button";
 import { useNavigate } from "react-router";
+import { validateNonEmpty } from "../validation/validation";
 
 // template for basic info
 const basicTemplate = {
@@ -35,40 +36,14 @@ const exTemplate = {
   description: "",
 };
 
-let testData = {
-  basic: {
-    firstName: "Roger",
-    lastName: "Federer",
-    phone: "111-111-1111",
-    email: "roger@email.com",
-  },
-  education: [
-    {
-      id: 0,
-      institution: "Dartmouth",
-      degreeType: "Bachelor's",
-      major: "Tennis",
-      startDate: "2000-01-01",
-      endDate: "2010-01-01",
-    },
-  ],
-  experience: [
-    {
-      id: 0,
-      company: "ATP",
-      position: "Player",
-      startDate: "2000-01-01",
-      endDate: "2010-01-01",
-      description: "Played Tennis for over 2 decades",
-    },
-  ],
-};
-// on button add entry button, create Add version  of education with an extra (empty) data entry
-// then redner the forms based on the existing entries in experience and education
 export default function Entry() {
-  const [basic, setBasic] = useState(basicTemplate);
-  const [education, setEducation] = useState([edTemplate]);
-  const [experience, setExperience] = useState([exTemplate]);
+  const [basic, setBasic] = useState({ ...basicTemplate });
+  const [education, setEducation] = useState([{ ...edTemplate }]);
+  const [experience, setExperience] = useState([{ ...exTemplate }]);
+
+  const [basicErrors, setBasicErrors] = useState({ ...basicTemplate });
+  const [edErrors, setEdErrors] = useState([{ ...edTemplate }]);
+  const [exErrors, setExErrors] = useState([{ ...exTemplate }]);
 
   // handles updates to basic form
   const handleBasicChange = (data) => {
@@ -95,23 +70,54 @@ export default function Entry() {
     ]);
   };
 
+  // handles updateing basic form errors
+  const handleBasicErrors = (error) => {
+    setBasicErrors({ ...error });
+  };
+
+  // handles updating education form errors
+  const handleEdErrors = (id, error) => {
+    let targetIndex = edErrors.findIndex((entry) => entry.id === id);
+    setEdErrors([
+      ...edErrors.slice(0, targetIndex),
+      error,
+      ...edErrors.slice(targetIndex + 1),
+    ]);
+  };
+
+  // handles updating experience form errors
+  const handleExErrors = (id, error) => {
+    let targetIndex = exErrors.findIndex((entry) => entry.id === id);
+    setExErrors([
+      ...exErrors.slice(0, targetIndex),
+      error,
+      ...exErrors.slice(targetIndex + 1),
+    ]);
+  };
+
   // handles adding Add education entry
   const handleAddEd = () => {
     let nextId = education.length > 0 ? education.at(-1).id + 1 : 0;
     setEducation([...education, { ...edTemplate, id: nextId }]);
+    setEdErrors([...edErrors, { ...edTemplate, id: nextId }]);
   };
   // handles adding Add experience entry
   const handleAddEx = () => {
     let nextId = experience.length > 0 ? experience.at(-1).id + 1 : 0;
     setExperience([...experience, { ...exTemplate, id: nextId }]);
+    setExErrors([...exErrors, { ...exTemplate, id: nextId }]);
   };
 
-  // handles Delete Add education entry
+  // handles deleting an education entry
   const handleDeleteEd = (id) => {
     let targetIndex = education.findIndex((entry) => entry.id === id);
     setEducation([
       ...education.slice(0, targetIndex),
       ...education.slice(targetIndex + 1),
+    ]);
+    setEdErrors([
+      ...edErrors.slice(0, targetIndex),
+      ...edErrors.slice(targetIndex + 1),
     ]);
   };
 
@@ -122,12 +128,90 @@ export default function Entry() {
       ...experience.slice(0, targetIndex),
       ...experience.slice(targetIndex + 1),
     ]);
+    setExErrors([
+      ...exErrors.slice(0, targetIndex),
+      ...exErrors.slice(targetIndex + 1),
+    ]);
   };
 
   let navigate = useNavigate();
+
+  // returns true if any prop values are empty; returns false if not
+  const containsError = (obj) => {
+    for (let key in obj) {
+      if (key !== "id" && obj[key] !== "") {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  // checks and updates all fields for errors
+  // returns true if no errors were found/added; returns false if errors exist
+  const validate = () => {
+    let basicTemp = { ...basicErrors };
+    // flag basic data errors
+    for (let key in basic) {
+      if (key != "id") {
+        basicTemp[key] = basicTemp[key] || validateNonEmpty(basic[key]);
+      }
+    }
+    setBasicErrors({ ...basicTemp });
+
+    // flag education data errors
+    let edTemp = [...edErrors];
+    for (let i = 0; i < education.length; i++) {
+      let entry = education[i];
+      let entryErrors = edTemp[i];
+      for (let key in entry) {
+        if (key != "id") {
+          entryErrors[key] = entryErrors[key] || validateNonEmpty(entry[key]);
+        }
+      }
+    }
+    setEdErrors([...edTemp]);
+
+    // flag experience data errors
+    let exTemp = [...exErrors];
+    for (let i = 0; i < experience.length; i++) {
+      let entry = experience[i];
+      let entryErrors = exTemp[i];
+      for (let key in entry) {
+        if (key != "id") {
+          entryErrors[key] = entryErrors[key] || validateNonEmpty(entry[key]);
+        }
+      }
+    }
+    setExErrors([...exTemp]);
+
+    // check if any field is missing information; alert user
+    if (containsError(basicErrors)) {
+      return false;
+    }
+    for (let entry of edErrors) {
+      if (containsError(entry)) {
+        return false;
+      }
+    }
+    for (let entry of exErrors) {
+      if (containsError(entry)) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  // handles saving data to local storage
   const handleSubmit = () => {
-    localStorage.setItem("data", JSON.stringify(testData));
-    navigate("/end");
+    console.log(education);
+    console.log(edErrors);
+    if (!validate()) {
+      alert("Please fix all errors before submitting.");
+    } else {
+      let data = { basic, experience, education };
+      localStorage.setItem("data", JSON.stringify(data));
+      navigate("/end");
+    }
   };
 
   useEffect(() => {
@@ -149,7 +233,12 @@ export default function Entry() {
         <section id="basic">
           <Card>
             <h2 className="heading">Basic Info</h2>
-            <BasicForm data={basic} handleInputChange={handleBasicChange} />
+            <BasicForm
+              data={basic}
+              handleInputChange={handleBasicChange}
+              errors={basicErrors}
+              handleErrors={handleBasicErrors}
+            />
           </Card>
         </section>
         <section id="education">
@@ -160,6 +249,8 @@ export default function Entry() {
                 data={entry}
                 handleInputChange={handleEdChange}
                 handleDelete={handleDeleteEd}
+                errors={edErrors[index]}
+                handleErrors={handleEdErrors}
                 key={"education" + entry.id}
               />
             ))}
@@ -175,6 +266,8 @@ export default function Entry() {
                 data={entry}
                 handleInputChange={handleExChange}
                 handleDelete={handleDeleteEx}
+                errors={exErrors[index]}
+                handleErrors={handleExErrors}
                 key={"experience" + entry.id}
               />
             ))}

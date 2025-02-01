@@ -1,16 +1,22 @@
 import { useState } from "react";
 import Input from "../Input/Input";
+import {
+  validate,
+  validateEmail,
+  validateNonEmpty,
+  validatePhone,
+} from "../../validation/validation";
 
-export default function BasicForm({ data, handleInputChange }) {
-  const [errors, setErrors] = useState({});
-
-  const validate = (fieldData = data) => {};
-
+export default function BasicForm({
+  data,
+  handleInputChange,
+  errors,
+  handleErrors,
+}) {
   const updateData = (e) => {
-    e.target.setCustomValidity("error msg:  Please enter your first name");
-
     e.preventDefault();
     const { name, value } = e.target;
+    handleErrors({ ...errors, [name]: "" });
     handleInputChange({ ...data, [name]: value });
   };
 
@@ -23,11 +29,17 @@ export default function BasicForm({ data, handleInputChange }) {
         value={data.firstName}
         placeholder="Ex: Roger"
         onChange={updateData}
-        onInvalid={(e) => {}}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors({ ...errors, [name]: error });
+        }}
         fill="true"
         required
       />
-
+      {errors.firstName ? (
+        <span className="error">{errors.firstName}</span>
+      ) : null}
       <Input
         name="lastName"
         id="lastName"
@@ -35,9 +47,17 @@ export default function BasicForm({ data, handleInputChange }) {
         value={data.lastName}
         placeholder="Ex: Federer"
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors({ ...errors, [name]: error });
+        }}
         fill="true"
         required
       />
+      {errors.lastName ? (
+        <span className="error">{errors.lastName}</span>
+      ) : null}
 
       <Input
         name="phone"
@@ -46,10 +66,16 @@ export default function BasicForm({ data, handleInputChange }) {
         value={data.phone}
         placeholder="Ex: 111-111-111"
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validatePhone);
+          handleErrors({ ...errors, [name]: error });
+        }}
         type="tel"
         fill="true"
         required
       />
+      {errors.phone ? <span className="error">{errors.phone}</span> : null}
 
       <Input
         name="email"
@@ -58,10 +84,16 @@ export default function BasicForm({ data, handleInputChange }) {
         value={data.email}
         placeholder="Ex: roger@email.com"
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateEmail);
+          handleErrors({ ...errors, [name]: error });
+        }}
         type="email"
         fill="true"
         required
       />
+      {errors.email ? <span className="error">{errors.email}</span> : null}
     </form>
   );
 }

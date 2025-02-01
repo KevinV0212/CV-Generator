@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { validate, validateNonEmpty } from "../../validation/validation";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import Select from "../Select/Select";
@@ -11,14 +13,17 @@ let degreeTypes = [
   "Doctoral",
 ];
 
-export default function EdForm({ data, handleInputChange, handleDelete }) {
-  // form should somehow be correlated with some index of the use state variable it's data is inside of
-  // when an input field changes, it will search he matching element in the state data varaible and then update that index
-  // two layers of diving
-  // there should be something similar to this in geosync I think for validation
+export default function EdForm({
+  data,
+  handleInputChange,
+  handleDelete,
+  errors,
+  handleErrors,
+}) {
   const updateData = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
+    handleErrors(data.id, { ...errors, [name]: "" });
     handleInputChange(data.id, { ...data, [name]: value });
   };
 
@@ -27,11 +32,6 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
     handleDelete(data.id);
   };
 
-  const getFormattedDate = (date) => {
-    // if (!date) return "";
-    // console.log(date);
-    // return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-  };
   return (
     <form onSubmit={(e) => e.preventDefault()} className={styles.entry}>
       <Input
@@ -41,10 +41,17 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.institution}
         placeholder="Ex: Harvard"
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors(data.id, { ...errors, [name]: error });
+        }}
         fill="true"
         required
       />
-
+      {errors.institution != "" ? (
+        <span className="error">{errors.institution}</span>
+      ) : null}
       <Select
         name="degreeType"
         id="degreeType"
@@ -52,15 +59,23 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.degreeTypes}
         onChange={updateData}
         fill="true"
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors(data.id, { ...errors, [name]: error });
+        }}
         required
       >
-        <option>Degree Type</option>
+        <option></option>
         {degreeTypes.map((type) => (
           <option value={type} key={type}>
             {type}
           </option>
         ))}
       </Select>
+      {errors.degreeType ? (
+        <span className="error">{errors.degreeType}</span>
+      ) : null}
 
       <Input
         name="major"
@@ -69,27 +84,49 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.major}
         placeholder="Ex: Quantum Psychology"
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors(data.id, { ...errors, [name]: error });
+        }}
         fill="true"
         required
       />
+      {errors.major ? <span className="error">{errors.major}</span> : null}
       <Input
         name="startDate"
         id="startDate"
         label="Start Date"
         value={data.startDate}
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors(data.id, { ...errors, [name]: error });
+        }}
         type="date"
         required
       />
+      {errors.startDate ? (
+        <span className="error">{errors.startDate}</span>
+      ) : null}
+
       <Input
         name="endDate"
         id="endDate"
         label="End Date"
         value={data.endDate}
         onChange={updateData}
+        onBlur={(e) => {
+          let { name, value } = e.target;
+          let error = validate(value, validateNonEmpty);
+          handleErrors(data.id, { ...errors, [name]: error });
+        }}
         type="date"
         required
       />
+      {errors.endDate ? <span className="error">{errors.endDate}</span> : null}
+
       <Button color="negative" onClick={deleteData}>
         Delete
       </Button>
