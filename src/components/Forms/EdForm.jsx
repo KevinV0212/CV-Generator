@@ -26,6 +26,12 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
     e.preventDefault();
     handleDelete(data.id);
   };
+
+  const getFormattedDate = (date) => {
+    // if (!date) return "";
+    // console.log(date);
+    // return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  };
   return (
     <form onSubmit={(e) => e.preventDefault()} className={styles.entry}>
       <Input
@@ -35,7 +41,7 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.institution}
         placeholder="Ex: Harvard"
         onChange={updateData}
-        fill
+        fill="true"
         required
       />
 
@@ -43,8 +49,9 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         name="degreeType"
         id="degreeType"
         label="Degree Type"
+        value={data.degreeTypes}
         onChange={updateData}
-        fill
+        fill="true"
         required
       >
         <option>Degree Type</option>
@@ -62,7 +69,7 @@ export default function EdForm({ data, handleInputChange, handleDelete }) {
         value={data.major}
         placeholder="Ex: Quantum Psychology"
         onChange={updateData}
-        fill
+        fill="true"
         required
       />
       <Input

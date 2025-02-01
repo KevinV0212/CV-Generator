@@ -26,7 +26,7 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         value={data.company}
         placeholder="Ex: ACME"
         onChange={updateData}
-        fill
+        fill="true"
         required
       />
       <Input
@@ -36,7 +36,7 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         value={data.position}
         placeholder="Ex: Head Trap Technician"
         onChange={updateData}
-        fill
+        fill="true"
         required
       />
       <Input
@@ -63,7 +63,7 @@ export default function ExForm({ data, handleInputChange, handleDelete }) {
         value={data.description}
         onChange={updateData}
         placeholder="Ex: I did...during my time at..."
-        fill
+        fill="true"
         required
       />
       <Button color="negative" onClick={deleteData}>

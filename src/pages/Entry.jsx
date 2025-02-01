@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logoLess from "../assets/logo-less-light.svg";
 import Card from "../components/Card/Card";
 import EdForm from "../components/Forms/EdForm";
@@ -21,8 +21,8 @@ const edTemplate = {
   institution: "",
   degreeType: "",
   major: "",
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: "",
+  endDate: "",
 };
 
 // create template for experience data
@@ -30,11 +30,39 @@ const exTemplate = {
   id: 0,
   company: "",
   position: "",
-  startDate: new Date(),
-  endDate: new Date(),
+  startDate: "",
+  endDate: "",
   description: "",
 };
 
+let testData = {
+  basic: {
+    firstName: "Roger",
+    lastName: "Federer",
+    phone: "111-111-1111",
+    email: "roger@email.com",
+  },
+  education: [
+    {
+      id: 0,
+      institution: "Dartmouth",
+      degreeType: "Bachelor's",
+      major: "Tennis",
+      startDate: "2000-01-01",
+      endDate: "2010-01-01",
+    },
+  ],
+  experience: [
+    {
+      id: 0,
+      company: "ATP",
+      position: "Player",
+      startDate: "2000-01-01",
+      endDate: "2010-01-01",
+      description: "Played Tennis for over 2 decades",
+    },
+  ],
+};
 // on button add entry button, create Add version  of education with an extra (empty) data entry
 // then redner the forms based on the existing entries in experience and education
 export default function Entry() {
@@ -98,8 +126,18 @@ export default function Entry() {
 
   let navigate = useNavigate();
   const handleSubmit = () => {
+    localStorage.setItem("data", JSON.stringify(testData));
     navigate("/end");
   };
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("data"));
+    if (data) {
+      setBasic(data.basic);
+      setEducation(data.education);
+      setExperience(data.experience);
+    }
+  }, []);
   return (
     <>
       <header>

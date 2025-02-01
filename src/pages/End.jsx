@@ -11,8 +11,11 @@ export default function End() {
   const [viewerOpen, setViewerOpen] = useState(false);
 
   let handleNewResume = () => {
-    // set locally saved form data to blank
-    navigate("/entry");
+    let check = window.confirm("This will delete your current resume.");
+    if (check) {
+      localStorage.removeItem("data");
+      navigate("/entry");
+    }
   };
   return (
     <>
