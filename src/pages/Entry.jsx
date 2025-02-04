@@ -203,8 +203,6 @@ export default function Entry() {
 
   // handles saving data to local storage
   const handleSubmit = () => {
-    console.log(education);
-    console.log(edErrors);
     if (!validate()) {
       alert("Please fix all errors before submitting.");
     } else {
@@ -220,6 +218,17 @@ export default function Entry() {
       setBasic(data.basic);
       setEducation(data.education);
       setExperience(data.experience);
+
+      setEdErrors([
+        ...data.education.map(() => {
+          return { ...edTemplate };
+        }),
+      ]);
+      setExErrors([
+        ...data.experience.map(() => {
+          return { ...exTemplate };
+        }),
+      ]);
     }
   }, []);
   return (
