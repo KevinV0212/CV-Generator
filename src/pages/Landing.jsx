@@ -18,7 +18,14 @@ export default function Landing() {
               Quick resume without the hassle. Enter your information into the
               CV-Generator and have a ready to download resume in minutes.
             </p>
-            <Button onClick={() => navigate("/entry")}>Get Started</Button>
+            <Button
+              onClick={() => {
+                localStorage.removeItem("data");
+                navigate("/entry");
+              }}
+            >
+              Get Started
+            </Button>
           </Card>
         </div>
       </main>

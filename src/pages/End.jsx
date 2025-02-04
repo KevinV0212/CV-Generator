@@ -35,6 +35,8 @@ export default function End() {
             {viewerOpen ? "Close Preview" : "Download PDF"}
           </Button>
 
+          <Button onClick={() => navigate("/")}>Exit</Button>
+
           {viewerOpen ? (
             <div className="iframe-wrapper">
               <PDFViewer height="500px" width="100%">
