@@ -1,14 +1,15 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: "column",
-    margin: 72,
-  },
-  section: {
-    padding: "20px 0px",
-    borderBottom: "2px solid black",
-  },
-});
+import { Document, Page, Text, View } from "@react-pdf/renderer";
+import { styles } from "./styles.js";
+// const styles = StyleSheet.create({
+//   page: {
+//     flexDirection: "column",
+//     margin: 72,
+//   },
+//   section: {
+//     padding: "20px 0px",
+//     borderBottom: "2px solid black",
+//   },
+// });
 
 // Create Document Component
 export default function Resume({ data }) {
@@ -17,11 +18,11 @@ export default function Resume({ data }) {
     return (
       <Document>
         <Page size="LETTER" style={styles.page}>
-          <View style={styles.section}>
+          <View style={styles.header}>
             <Text>{basic.firstName + " " + basic.lastName}</Text>
             <div>
-              <Text>{basic.phone}</Text>
-              <Text>{basic.email}</Text>
+              <Text>{`${basic.phone} | ${basic.email}`}</Text>
+              <Text></Text>
             </div>
           </View>
 
@@ -32,13 +33,10 @@ export default function Resume({ data }) {
             {education.map((entry) => (
               <div key={"education" + entry.id}>
                 <Text>{`${entry.degreeType} in ${entry.major}`}</Text>
-                <div>
+                <View style={styles.flexSpaceBetween}>
                   <Text>{entry.institution}</Text>
-                  <div>
-                    <Text>{entry.startDate}</Text>
-                    <Text>{entry.endDate}</Text>
-                  </div>
-                </div>
+                  <Text>{`${entry.startDate} - ${entry.endDate} `}</Text>
+                </View>
               </div>
             ))}
           </View>
@@ -49,15 +47,12 @@ export default function Resume({ data }) {
             </Text>
             {experience.map((entry) => (
               <div key={"education" + entry.id}>
-                <div>
+                <View style={styles.flexSpaceBetween}>
                   <Text>{entry.company}</Text>
-                  <div>
-                    <Text>{entry.startDate}</Text>
-                    <Text>{entry.endDate}</Text>
-                  </div>
-                </div>
+                  <Text>{`${entry.startDate} - ${entry.endDate} `}</Text>
+                </View>
                 <Text>{entry.position}</Text>
-                <Text>{entry.description}</Text>
+                <Text style={styles.description}>{entry.description}</Text>
               </div>
             ))}
           </View>
