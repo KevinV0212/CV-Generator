@@ -56,7 +56,7 @@ export default function EdForm({
         name="degreeType"
         id="degreeType"
         label="Degree Type"
-        value={data.degreeTypes}
+        value={data.degreeType}
         onChange={updateData}
         fill="true"
         onBlur={(e) => {

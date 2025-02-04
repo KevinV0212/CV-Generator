@@ -3,12 +3,13 @@ import logoLess from "../assets/logo-less-light.svg";
 import Button from "../components/Button/Button";
 import Card from "../components/Card/Card";
 import { PDFViewer } from "@react-pdf/renderer";
-import MyDocument from "../components/Document/Document";
 import { useState } from "react";
+import Resume from "../components/Resume/Resume";
 
 export default function End() {
-  let navigate = useNavigate();
   const [viewerOpen, setViewerOpen] = useState(false);
+  let data = JSON.parse(localStorage.getItem("data"));
+  let navigate = useNavigate();
 
   let handleNewResume = () => {
     let check = window.confirm("This will delete your current resume.");
@@ -37,7 +38,7 @@ export default function End() {
           {viewerOpen ? (
             <div className="iframe-wrapper">
               <PDFViewer height="500px" width="100%">
-                <MyDocument />
+                <Resume data={data} />
               </PDFViewer>
             </div>
           ) : null}
