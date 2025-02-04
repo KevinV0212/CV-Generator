@@ -1,5 +1,5 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
-import { styles } from "./styles.js";
+import { getFormattedDate, styles } from "./styles.js";
 // const styles = StyleSheet.create({
 //   page: {
 //     flexDirection: "column",
@@ -35,7 +35,9 @@ export default function Resume({ data }) {
                 <Text>{`${entry.degreeType} in ${entry.major}`}</Text>
                 <View style={styles.flexSpaceBetween}>
                   <Text>{entry.institution}</Text>
-                  <Text>{`${entry.startDate} - ${entry.endDate} `}</Text>
+                  <Text>{`${getFormattedDate(
+                    entry.startDate
+                  )} - ${getFormattedDate(entry.endDate)} `}</Text>
                 </View>
               </div>
             ))}
@@ -49,7 +51,9 @@ export default function Resume({ data }) {
               <div key={"education" + entry.id}>
                 <View style={styles.flexSpaceBetween}>
                   <Text>{entry.company}</Text>
-                  <Text>{`${entry.startDate} - ${entry.endDate} `}</Text>
+                  <Text>{`${getFormattedDate(
+                    entry.startDate
+                  )} - ${getFormattedDate(entry.endDate)} `}</Text>
                 </View>
                 <Text>{entry.position}</Text>
                 <Text style={styles.description}>{entry.description}</Text>

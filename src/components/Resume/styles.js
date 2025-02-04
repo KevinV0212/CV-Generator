@@ -28,3 +28,27 @@ export const styles = StyleSheet.create({
     margin: "10px 0px",
   },
 });
+
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+// converts a date string to the following format: "MONTH YEAR"
+export const getFormattedDate = (dateStr) => {
+  const date = new Date(dateStr);
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${month} ${year}`;
+};
