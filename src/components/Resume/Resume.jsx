@@ -19,45 +19,52 @@ export default function Resume({ data }) {
       <Document>
         <Page size="LETTER" style={styles.page}>
           <View style={styles.header}>
-            <Text>{basic.firstName + " " + basic.lastName}</Text>
-            <div>
-              <Text>{`${basic.phone} | ${basic.email}`}</Text>
-              <Text></Text>
-            </div>
+            <Text style={styles.title}>
+              {basic.firstName + " " + basic.lastName}
+            </Text>
+            <View>
+              <Text
+                style={styles.body}
+              >{`${basic.phone} | ${basic.email}`}</Text>
+            </View>
           </View>
 
           <View style={styles.section}>
-            <Text>
-              <Text>Education</Text>
-            </Text>
-            {education.map((entry) => (
-              <div key={"education" + entry.id}>
-                <Text>{`${entry.degreeType} in ${entry.major}`}</Text>
+            <Text style={styles.heading}>Education</Text>
+            {education.map((entry, index) => (
+              <View
+                key={"education" + entry.id}
+                style={index < education.length - 1 ? styles.entry : null}
+              >
+                <Text
+                  style={styles.bold}
+                >{`${entry.degreeType} in ${entry.major}`}</Text>
                 <View style={styles.flexSpaceBetween}>
-                  <Text>{entry.institution}</Text>
-                  <Text>{`${getFormattedDate(
+                  <Text style={styles.body}>{entry.institution}</Text>
+                  <Text style={styles.body}>{`${getFormattedDate(
                     entry.startDate
                   )} - ${getFormattedDate(entry.endDate)} `}</Text>
                 </View>
-              </div>
+              </View>
             ))}
           </View>
 
           <View style={styles.section}>
-            <Text>
-              <Text>Experience</Text>
-            </Text>
-            {experience.map((entry) => (
-              <div key={"education" + entry.id}>
+            <Text style={styles.heading}>Experience</Text>
+            {experience.map((entry, index) => (
+              <View
+                key={"education" + entry.id}
+                style={index < experience.length - 1 ? styles.entry : null}
+              >
                 <View style={styles.flexSpaceBetween}>
-                  <Text>{entry.company}</Text>
-                  <Text>{`${getFormattedDate(
+                  <Text style={styles.bold}>{entry.company}</Text>
+                  <Text style={styles.bold}>{`${getFormattedDate(
                     entry.startDate
                   )} - ${getFormattedDate(entry.endDate)} `}</Text>
                 </View>
-                <Text>{entry.position}</Text>
-                <Text style={styles.description}>{entry.description}</Text>
-              </div>
+                <Text style={styles.body}>{entry.position}</Text>
+                <Text style={styles.body}>{entry.description}</Text>
+              </View>
             ))}
           </View>
         </Page>
