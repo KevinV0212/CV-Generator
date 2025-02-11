@@ -1,5 +1,6 @@
-# CV Generator
+# [CV Generator](cv-generator-kv.netlify.app)
 
+[My Design](https://tinyurl.com/cv-generator-design)
 Are you struggling to write your resume. There are so many things to keep track of.
 What should you include? How should you format it? With so many options, it may
 seem impossible to get started.
@@ -11,3 +12,4 @@ you can download it in pdf form.
 - This project was created with Vite + React JS.
 - It also uses the [react-pdf](https://www.npmjs.com/package/react-pdf) plugin
   to generate resume documents as pdf files.
+- My
