@@ -1,8 +1,13 @@
-# React + Vite
+# CV Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Are you struggling to write your resume. There are so many things to keep track of.
+What should you include? How should you format it? With so many options, it may
+seem impossible to get started.
 
-Currently, two official plugins are available:
+This application seeks to make this process much simpler. Insert your information
+in the provided template, then hit submit. A resume will be generated for you and
+you can download it in pdf form.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- This project was created with Vite + React JS.
+- It also uses the [react-pdf](https://www.npmjs.com/package/react-pdf) plugin
+  to generate resume documents as pdf files.
