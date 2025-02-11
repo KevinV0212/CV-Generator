@@ -87,6 +87,11 @@ export default function ExForm({
         onBlur={(e) => {
           let { name, value } = e.target;
           let error = validate(value, validateNonEmpty);
+          let startDate = new Date(data.startDate);
+          let endDate = new Date(value);
+          if (endDate < startDate) {
+            error = "End date cannot be before start date.";
+          }
           handleErrors(data.id, { ...errors, [name]: error });
         }}
         type="date"
